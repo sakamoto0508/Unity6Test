@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class StateMachine 
 {
-    private IState _currentState;
+    public IState _currentState { get; private set; }
     public void ChangeState(IState nextState)
     {
         // 現在のステートのExitを実行。
-        _currentState?.Exit();
+        _currentState?.OnExit();
         // 次のステートに変更。
         _currentState = nextState;
         // 次のステートのEnterを実行。
-        _currentState.Enter();
+        _currentState.OnEnter();
     }
 
     public void Update()
     {
-        _currentState?.Update();
+        _currentState?.OnUpdate();
     }
 }

@@ -1,16 +1,16 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class InputBuffer : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private const string MOVE_ACTION = "Move";
+    public InputAction MoveAction => _moveAction;
+    private InputAction _moveAction;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        var playerInput = GetComponent<PlayerInput>();
+        _moveAction = playerInput.actions[MOVE_ACTION];
     }
 }

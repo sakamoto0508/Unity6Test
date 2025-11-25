@@ -19,6 +19,13 @@ public class SimplePlayerMover
         _moveInput = input;
     }
 
+    public void MoveStop()
+    {
+        _moveInput = Vector2.zero;
+        _moveDirection = Vector3.zero;
+        _rb.linearVelocity = Vector3.zero;
+    }
+
     public void Update()
     {
         Move();

@@ -1,16 +1,14 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+[RequireComponent(typeof(Rigidbody))]
 public class SimplePlayerController : MonoBehaviour
 {
-    private InputBuffer _inputBuffer;
-    private SimplePlayerMover _playerMover;
+    [SerializeField] private InputBuffer _inputBuffer;
+    [SerializeField] private SimplePlayerMover _playerMover;
     private Rigidbody _rb;
     private void Awake()
     {
-        _inputBuffer = GetComponent<InputBuffer>();
-        _playerMover = GetComponent<SimplePlayerMover>();
         _rb = GetComponent<Rigidbody>();
         _playerMover =new SimplePlayerMover(_rb,Camera.main.transform);
     }

@@ -34,7 +34,7 @@ public class SimplePlayerMover
 
     public void FixedUpdate()
     {
-        _rb.linearVelocity = _moveDirection * _moveSpeed * Time.deltaTime;
+        _rb.linearVelocity = _moveDirection * _moveSpeed;
         _rb.rotation = Quaternion.Slerp(_rb.rotation, _targetRot, 0.1f);
     }
 

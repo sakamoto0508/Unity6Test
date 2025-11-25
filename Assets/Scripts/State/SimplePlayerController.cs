@@ -1,15 +1,31 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SimplePlayerController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private InputBuffer _InputBuffer;
+    private SimplePlayerMover _PlayerMover;
+    private void Awake()
     {
-        
+        _InputBuffer = GetComponent<InputBuffer>();
+        _PlayerMover = GetComponent<SimplePlayerMover>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
+    {
+        _InputBuffer.MoveAction.performed += OnMoveAction;
+        _InputBuffer.MoveAction.canceled += OnMoveAction;
+    }
+    
+
+    private void OnDestroy()
+    {
+        _InputBuffer.MoveAction.performed -= OnMoveAction;
+        _InputBuffer.MoveAction.canceled -= OnMoveAction;
+    }
+
+    private void OnMoveAction(InputAction.CallbackContext context)
     {
         
     }

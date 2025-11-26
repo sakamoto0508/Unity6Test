@@ -1,16 +1,13 @@
 using UnityEngine;
 
-public class GoapGoal : MonoBehaviour
+public class GoapGoal
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public GoapGoal(string name, float priority)
     {
-        
+        Name = name;
+        Priority = priority;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string Name { get; private set; }
+    public float Priority {  get; private set; }
 }

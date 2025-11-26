@@ -7,6 +7,10 @@ public class EnemyController : MonoBehaviour
     private GoapAgent _goapAgent;
     private StateMachine _stateMachine;
     private NavMeshAgent _navMeshAgent;
+    public void MoveTo(Vector3 point)
+    {
+        _stateMachine.ChangeState(new MoveState(_navMeshAgent, point));
+    }
 
     private void Awake()
     {
@@ -23,10 +27,5 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         _goapAgent.UpdateAgent();
-    }
-
-    public void MoveTo(Vector3 point)
-    {
-        _stateMachine.ChangeState(new MoveState(_navMeshAgent, point));
-    }
+    } 
 }

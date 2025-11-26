@@ -7,11 +7,12 @@ public class EvadePlayerAction : GoapAction
 
     public override bool IsValid()
     {
+        if (_enemy == null || _enemy.Player == null) return false;
         float dist = Vector3.Distance(transform.position, _enemy.Player.position);
         return dist < _safeDistance;
     }
 
-    public float GetPriority() => 2f;
+    public override float GetPriority() => 2f;
 
     public override void OnStart()
     {

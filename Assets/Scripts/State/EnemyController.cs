@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.AI;
+
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private Transform _player;
+    public Transform Player { get; private set; }
     private GoapAgent _goapAgent;
     private StateMachine _stateMachine;
     private NavMeshAgent _navMeshAgent;
@@ -24,7 +25,7 @@ public class EnemyController : MonoBehaviour
         _goapAgent.UpdateAgent();
     }
 
-    private void MoveTo(Vector3 point)
+    public void MoveTo(Vector3 point)
     {
         _stateMachine.ChangeState(new MoveState(_navMeshAgent, point));
     }

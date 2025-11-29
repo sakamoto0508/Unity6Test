@@ -13,7 +13,7 @@ public class GoapAgent : MonoBehaviour
 
     public void UpdateAgent()
     {
-        if (_currentAction != null || _currentAction.IsCompleted())
+        if (_currentAction == null || _currentAction.IsCompleted())
         {
             _currentAction = ChooseAction();
             if (_currentAction != null)

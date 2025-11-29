@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StateMachine 
+public class StateMachine :MonoBehaviour 
 {
     public IState _currentState { get; private set; }
     public void ChangeState(IState nextState)

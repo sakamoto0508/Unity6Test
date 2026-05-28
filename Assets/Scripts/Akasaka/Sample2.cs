@@ -30,6 +30,7 @@ public class Sample2 : MonoBehaviour
                 var imageObj = obj.AddComponent<ImageObj>();
                 imageObj.Initialize(image);
                 _imageObj[r][c] = imageObj;
+                Debug.Log($"Cell({r}, {c}) initialized.");
                 if (r == 0 && c == 0) { image.color = Color.red; }
                 else { image.color = Color.white; }
             }
@@ -43,35 +44,93 @@ public class Sample2 : MonoBehaviour
 
         if (keyboard.leftArrowKey.wasPressedThisFrame) // 左キーを押した
         {
-            
             _imageObj[_currentIndexY][_currentIndexX].SetIsActive(false);
-            _currentIndexX = (_currentIndexX - 1 + _columns) % _columns;
+            for (int i = 1; i <= _columns; i++)
+            {
+                int nextX = (_currentIndexX - i + _columns) % _columns;
+
+                if (_imageObj[_currentIndexY][nextX].IsVisible)
+                {
+                    _currentIndexX = nextX;
+                    break;
+                }
+            }
             _imageObj[_currentIndexY][_currentIndexX].SetIsActive(true);
         }
         if (keyboard.rightArrowKey.wasPressedThisFrame) // 右キーを押した
         {
             _imageObj[_currentIndexY][_currentIndexX].SetIsActive(false);
-            _currentIndexX = (_currentIndexX + 1) % _columns;
+            for (int i = 1; i <= _columns; i++)
+            {
+                int nextX = (_currentIndexX + i) % _columns;
+
+                if (_imageObj[_currentIndexY][nextX].IsVisible)
+                {
+                    _currentIndexX = nextX;
+                    break;
+                }
+            }
             _imageObj[_currentIndexY][_currentIndexX].SetIsActive(true);
         }
         if (keyboard.upArrowKey.wasPressedThisFrame) // 上キーを押した
         {
             _imageObj[_currentIndexY][_currentIndexX].SetIsActive(false);
-            _currentIndexY = (_currentIndexY - 1 + _rows) % _rows;
+            for (int i = 1; i <= _rows; i++)
+            {
+                int nextY = (_currentIndexY - i + _rows) % _rows;
+                if(_imageObj[nextY][_currentIndexX].IsVisible)
+                {
+                    _currentIndexY = nextY;
+                    break;
+                }
+            }
             _imageObj[_currentIndexY][_currentIndexX].SetIsActive(true);
         }
-
         if (keyboard.downArrowKey.wasPressedThisFrame) // 下キーを押した
         {
             _imageObj[_currentIndexY][_currentIndexX].SetIsActive(false);
-            _currentIndexY = (_currentIndexY + 1) % _rows;
+            for (int i = 1; i <= _rows; i++)
+            {
+                int nextY = (_currentIndexY + i) % _rows;
+                if(_imageObj[nextY][_currentIndexX].IsVisible)
+                {
+                    _currentIndexY = nextY;
+                    break;
+                }
+            }
             _imageObj[_currentIndexY][_currentIndexX].SetIsActive(true);
         }
 
         if (keyboard.spaceKey.wasPressedThisFrame) // スペースキーを押した
         {
-           
-            
+            _imageObj[_currentIndexY][_currentIndexX].SetIsVisible(false);
+            _imageObj[_currentIndexY][_currentIndexX].SetIsActive(false);
+            //一番近くのセルをアクティブにする
+            var nearestIndex = SerachNeaestIndex(_currentIndexX, _currentIndexY);
+            _currentIndexX = nearestIndex[0];
+            _currentIndexY = nearestIndex[1];
+            _imageObj[_currentIndexY][_currentIndexX].SetIsActive(true);
         }
+    }
+
+    private int[] SerachNeaestIndex(int currentX, int currentY)
+    {
+        var nearestIndexX = currentX;
+        var nearestIndexY = currentY;
+        var minDistance = int.MaxValue;
+        for (int j = 0; j < _columns; j++)
+        {
+            for (int i = 0; i < _rows; i++)
+            {
+                var distance = Mathf.Abs(currentX - j) + Mathf.Abs(currentY - i);
+                if (distance < minDistance && _imageObj[i][j].IsVisible)
+                {
+                    nearestIndexX = j;
+                    nearestIndexY = i;
+                    minDistance = distance;
+                }
+            }
+        }
+        return new int[] { nearestIndexX, nearestIndexY };
     }
 }

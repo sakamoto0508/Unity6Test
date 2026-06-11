@@ -14,11 +14,14 @@ public class Sample3 : MonoBehaviour, IPointerClickHandler
     private ImageObj2[][] _imageObj;
     private void Start()
     {
-        _imageObj = new ImageObj2[5][];
-        for (var r = 0; r < 5; r++)
+        _layoutGroup = GetComponent<GridLayoutGroup>();
+
+        _imageObj = new ImageObj2[_rows][];
+
+        for (var r = 0; r < _rows; r++)
         {
-            _imageObj[r] = new ImageObj2[5];
-            for (var c = 0; c < 5; c++)
+            _imageObj[r] = new ImageObj2[_columns];
+            for (var c = 0; c < _columns; c++)
             {
                 var cell = new GameObject($"Cell({r}, {c})");
                 cell.transform.parent = transform;

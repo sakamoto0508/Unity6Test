@@ -4,11 +4,15 @@ using UnityEngine.UI;
 public class ImageObj2 : MonoBehaviour
 {
     public bool IsBlack { get; private set; }
-    private Image _image;
+    public int Row{ get; private set; }
+    public int Columns{ get; private set; }
 
-    public void Initialize(Image image)
+    private Image _image;
+    public void Initialize(Image image, int row, int columns)
     {
         _image = image;
+        Row = row;
+        Columns = columns;
     }
 
     public void SetIsBlack()

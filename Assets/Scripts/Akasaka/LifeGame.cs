@@ -9,7 +9,7 @@ public class LifeGame : MonoBehaviour, IPointerClickHandler
     [SerializeField] private CellScript _cellPrefab;
     [SerializeField] private int _rows = 10;
     [SerializeField] private int _columns = 10;
-    [SerializeField,Multiline] private string _data;
+    [SerializeField, Multiline] private string _data;
     [SerializeField] private float _duration = 1.0F; // セルを更新する時間間隔（秒単位）
     private bool _isPlaying = false; // 時間経過の更新が実行中かどうか
     private float _currentTime = 0.0F; // 経過時間を追跡する変数
@@ -79,16 +79,16 @@ public class LifeGame : MonoBehaviour, IPointerClickHandler
 
     private void StartPattern(string pattern)
     {
-        if(pattern.Length < _rows * _columns) 
+        if (pattern.Length < _rows * _columns)
         {
-            while(pattern.Length < _rows * _columns)
+            while (pattern.Length < _rows * _columns)
             {
                 pattern += "0";
-            }   
+            }
         }
-        for(int i=0;i<_rows;i++)
+        for (int i = 0; i < _rows; i++)
         {
-            for(int j=0;j<_columns;j++)
+            for (int j = 0; j < _columns; j++)
             {
                 _cells[i, j].State = pattern[i * _columns + j] == '1' ? CellState.Alive : CellState.Dead;
             }
@@ -131,11 +131,11 @@ public class LifeGame : MonoBehaviour, IPointerClickHandler
                     // 生きているセルのルール
                     if (aliveNeighbors < 2 || aliveNeighbors > 3)
                     {
-                        nextStates[r, c] = CellState.Dead; // 過疎または過密で死ぬ
+                        nextStates[r, c] = CellState.Dead;
                     }
                     else
                     {
-                        nextStates[r, c] = CellState.Alive; // 生き続ける
+                        nextStates[r, c] = CellState.Alive;
                     }
                 }
                 else
@@ -143,11 +143,11 @@ public class LifeGame : MonoBehaviour, IPointerClickHandler
                     // 死んでいるセルのルール
                     if (aliveNeighbors == 3)
                     {
-                        nextStates[r, c] = CellState.Alive; // 誕生する
+                        nextStates[r, c] = CellState.Alive;
                     }
                     else
                     {
-                        nextStates[r, c] = CellState.Dead; // 死んだまま
+                        nextStates[r, c] = CellState.Dead;
                     }
                 }
             }
